@@ -1,3 +1,5 @@
 # chitragupt
-Note-taking journaling app made with PyQT
+Note-taking and journaling app
+<center>
 ![Chitragupt](chitragupt.png)
+</center>
