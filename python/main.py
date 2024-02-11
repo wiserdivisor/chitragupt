@@ -9,6 +9,7 @@ class WidgetGallery(QDialog):
         super(WidgetGallery, self).__init__(parent)
 
         self.display_window = QVBoxLayout()
+        self.new_label_style = "color:black; background-color: coral; border: 1px solid brown; border-radius: 5px; padding: 10px; font-size: 16px;"
 
         self.text_edit = QTextEdit()
         self.text_edit.setMaximumHeight(100)
@@ -38,12 +39,10 @@ class WidgetGallery(QDialog):
             with open(filename,'r') as fptr:
                 while(newline := fptr.readline()):
                     newline = newline.strip()
-                    new_label = QLabel(newline)
-                    new_label.setStyleSheet("background-color: coral;border: 1px solid brown; border-radius: 5px;")
+                    new_label = QLabel()
+                    new_label.setText(newline)
+                    new_label.setStyleSheet(self.new_label_style)
                     self.display_window.addWidget(new_label)
-        else:
-            new_label = QLabel("no-content")
-            self.display_window.addWidget(new_label)
 
     def save(self):
         current_date = date.today()
@@ -51,8 +50,9 @@ class WidgetGallery(QDialog):
         content = self.text_edit.toPlainText()
         with open(filename,'a') as fptr:
             fptr.write(content + "\n")
-        new_label = QLabel(content)
-        new_label.setStyleSheet("background-color: coral;border: 1px solid brown; border-radius: 5px;")
+        new_label = QLabel()
+        new_label.setText(content)
+        new_label.setStyleSheet(self.new_label_style)
         self.display_window.addWidget(new_label)
         self.text_edit.setPlainText("")
 
