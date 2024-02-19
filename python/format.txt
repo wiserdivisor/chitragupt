@@ -1,0 +1,51 @@
+>note/todo/log/idea/quote/tao/opinion/dream:todo
+"note","todo","log","idea","quote","tao","opinion","dream"
+This is a #test note for checking:
+  1. tags
+  2. id assignment
+  3. How it renders in the GUI
+
+[
+  {
+    "timestamp":1707848380,
+    "tags":["linux","bash","C++"],
+    "text":"A list of techs that I don't understand: #linux, #bash, #C++",
+    "attachments":["path/to/file","path/to/file","path/to/file","path/to/file"]
+  },
+]
+
+[C-o] : Open a new file
+[C-/] : Search
+[esc] Visual mode
+    - [tab] To shift between visual window, text box and todo window
+
+## SEARCH MODE
+  - only text searches in root and returns records sorted by date
+  - Filter on the right can be used for choosing folders
+
+## TEXT AREA
+
+### Control chars
+  - [:] Command
+
+### IF THE VERY FIRST CHAR IS FOUND TO BE A `:`, SCRIPT MODE ENABLED
+
+### Append to current file
+:a
+Append to current file
+
+### Append to a todo list of a non-current file
+:a:todo
+new todo element
+
+### Append to a non-current file
+:a/note/powershell
+Invoke-WebRequest is insane
+
+### Append to a todo list of a non-current file
+:a/note/powershell:todo
+new todo element
+
+### Can write a whole script to do
+:a/dev/powershell
+some content

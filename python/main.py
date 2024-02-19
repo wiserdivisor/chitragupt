@@ -1,5 +1,7 @@
 import os
+import json
 from datetime import date
+from datetime import datetime
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
 
@@ -10,6 +12,8 @@ class WidgetGallery(QDialog):
 
         self.display_window = QVBoxLayout()
         self.new_label_style = "color:black; background-color: coral; border: 1px solid brown; border-radius: 5px; padding: 10px; font-size: 16px;"
+        self.record_template = { "timestamp":0, "tags":[], "attachments":[], "text":"" }
+        self.todo_template = { "timestamp":0, "checkstate":0, "text":"" }
 
         self.text_edit = QTextEdit()
         self.text_edit.setMaximumHeight(100)
@@ -45,8 +49,9 @@ class WidgetGallery(QDialog):
                     self.display_window.addWidget(new_label)
 
     def save(self):
+        content = self.text_edit.toPlainText()
         current_date = date.today()
-        filename = f"./{current_date}.md"
+        filename = f"{current_date}.md"
         content = self.text_edit.toPlainText()
         with open(filename,'a') as fptr:
             fptr.write(content + "\n")
