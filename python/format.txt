@@ -1,23 +1,5 @@
->note/todo/log/idea/quote/tao/opinion/dream:todo
-"note","todo","log","idea","quote","tao","opinion","dream"
-This is a #test note for checking:
-  1. tags
-  2. id assignment
-  3. How it renders in the GUI
-
-[
-  {
-    "timestamp":1707848380,
-    "tags":["linux","bash","C++"],
-    "text":"A list of techs that I don't understand: #linux, #bash, #C++",
-    "attachments":["path/to/file","path/to/file","path/to/file","path/to/file"]
-  },
-]
-
-[C-o] : Open a new file
-[C-/] : Search
-[esc] Visual mode
-    - [tab] To shift between visual window, text box and todo window
+[C-/] : Local Search
+[C-Shift-/] : Global Search
 
 ## SEARCH MODE
   - only text searches in root and returns records sorted by date
@@ -30,22 +12,25 @@ This is a #test note for checking:
 
 ### IF THE VERY FIRST CHAR IS FOUND TO BE A `:`, SCRIPT MODE ENABLED
 
-### Append to current file
-:a
-Append to current file
-
-### Append to a todo list of a non-current file
-:a:todo
+:todo
 new todo element
 
-### Append to a non-current file
-:a/note/powershell
-Invoke-WebRequest is insane
+:goto 2024-02-12.md
 
-### Append to a todo list of a non-current file
-:a/note/powershell:todo
-new todo element
+:cal
 
-### Can write a whole script to do
-:a/dev/powershell
-some content
+:remind 2024-02-22T12:00:00
+Important stuff
+
+Storage format:
+{
+  "todo":[
+    { "timestamp":"12423534", "state":0, "content":"some content" },
+    { "timestamp":"12423534", "state":1, "content":"some content" }
+  ],
+  "log":[
+    { "timestamp":"12423534", "content":"some content" },
+    { "timestamp":"12423534", "content":"some content" },
+    { "timestamp":"12423534", "content":"some content" }
+  ]
+}
