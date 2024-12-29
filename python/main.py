@@ -3,13 +3,13 @@ import json
 from datetime import date
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
-
+'''
 class TextArea(QTextEdit):
     def __init__(self,parent):
         super().__init__(parent=parent)
         self.show()
     def keyPressEvent():
-
+'''
 class WidgetGallery(QDialog):
 
     def __init__(self, parent=None):
@@ -26,7 +26,12 @@ class WidgetGallery(QDialog):
         top_layout.addWidget(quote)
 
         self.log_frame = QVBoxLayout()
+        log_widget = QWidget()
+        log_widget.setMaximumSize(400,400)
         self.todo_frame = QVBoxLayout()
+        todo_widget = QWidget()
+        todo_widget.setMaximumSize(200,400)
+        #self.todo_frame.addWidget(todo_widget)
         mid_layout.addLayout(self.log_frame)
         mid_layout.addLayout(self.todo_frame)
 
