@@ -13,7 +13,9 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    commandplaintextedit.h \
+    mainwindow.h \
+    todocard.h
 
 FORMS += \
     mainwindow.ui

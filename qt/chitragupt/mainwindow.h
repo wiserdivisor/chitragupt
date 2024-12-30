@@ -9,6 +9,10 @@
 #include <QWidget>
 #include <QLabel>
 #include <QCheckBox>
+#include <QHash>
+
+#include <commandplaintextedit.h>
+#include <todocard.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,11 +28,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     void setup_content_scroll_area();
     void setup_task_scroll_area();
+    void executeCommand();
+    void newlineCommand();
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
-
     void on_calendarWidget_clicked(const QDate &date);
 
 private:
@@ -36,5 +40,11 @@ private:
     QVBoxLayout *vbox_for_text_labels;
     QVBoxLayout *vbox_for_checkboxes;
     QPlainTextEdit *command_line;
+    QHash<QString, int> Commands{
+        {":todo", 0},
+        {":log",1},
+        {":today",2},
+        {":cal",3}
+    };
 };
 #endif // MAINWINDOW_H

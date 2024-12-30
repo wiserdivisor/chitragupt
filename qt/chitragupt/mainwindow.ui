@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+   <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -38,7 +38,7 @@
    <string/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPlainTextEdit" name="command_line">
+   <widget class="CommandPlainTextEdit" name="command_line">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -56,18 +56,10 @@
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>870</x>
-      <y>540</y>
-      <width>41</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&gt;&gt;&gt;</string>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
     </property>
    </widget>
    <widget class="QLabel" name="header_title">
@@ -169,6 +161,9 @@
       <property name="styleSheet">
        <string notr="true"/>
       </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
       <property name="widgetResizable">
        <bool>true</bool>
       </property>
@@ -250,12 +245,18 @@
    </widget>
    <zorder>stackedWidget</zorder>
    <zorder>command_line</zorder>
-   <zorder>pushButton</zorder>
    <zorder>header_title</zorder>
    <zorder>header_quote</zorder>
    <zorder>line</zorder>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CommandPlainTextEdit</class>
+   <extends>QPlainTextEdit</extends>
+   <header>commandplaintextedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

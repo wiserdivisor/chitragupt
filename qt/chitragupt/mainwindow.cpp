@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setup_content_scroll_area();
     setup_task_scroll_area();
+    connect(ui->command_line, &CommandPlainTextEdit::enterPressed, this, &MainWindow::executeCommand);
+    connect(ui->command_line, &CommandPlainTextEdit::shiftEnterPressed, this, &MainWindow::newlineCommand);
 }
 
 void MainWindow::setup_content_scroll_area()
@@ -33,31 +35,58 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::newlineCommand()
+{
+    QFont f("Segoe UI",12);
+    ui->command_line->setFont(f);
+    ui->command_line->appendPlainText("");
+}
+
+void MainWindow::executeCommand()
 {
     command_line = ui->command_line;
     QString qtext = command_line->toPlainText();
+    if(qtext.isEmpty()){
+        return;
+    }
+    int firstSpaceChar = qtext.indexOf(" ");
+    QString command = qtext.mid(0,firstSpaceChar);
+    QString content = qtext.mid(firstSpaceChar+1);
 
-    if (qtext.startsWith(":todo"))
-    {
-        QCheckBox *cb = new QCheckBox();
-        cb->setText(qtext);
-        cb->setStyleSheet("color:black; background-color: lightgrey; border: 2px solid black; border-radius: 5px; padding: 10px; font-size: 16px;");
-        vbox_for_checkboxes->addWidget(cb);
+    int firstNewlineChar = content.indexOf("\n");
+    QString tagline = content.mid(0,firstNewlineChar);
+    QStringList taglist = tagline.split(" ",Qt::SkipEmptyParts);
+    QString content_body = content.mid(firstNewlineChar+1);
+
+    int command_id = Commands[command];
+    switch(command_id) {
+        case 0: { // :todo
+            TodoCard *tc = new TodoCard(content_body, taglist);
+            vbox_for_checkboxes->addWidget(tc);
+            break;
+        };
+        case 1: { // :log
+            QLabel *l = new QLabel();
+            l->setText(content_body);
+            l->setStyleSheet("color:black; background-color: lightgrey; border: 2px solid black; border-radius: 5px; padding: 10px; font-size: 16px;");
+            l->setWordWrap(true);
+            vbox_for_text_labels->addWidget(l);
+        };
+        case 2: { // :today
+            ui->stackedWidget->setCurrentIndex(0);
+            break;
+        };
+        case 3: { // :cal
+            ui->stackedWidget->setCurrentIndex(1);
+            break;
+        };
+        default: { // invalid input
+            // just does nothing.
+            // break
+        };
     }
-    else if (qtext.startsWith(":today")) {
-        ui->stackedWidget->setCurrentIndex(0);
-    }
-    else if (qtext.startsWith(":cal")) {
-        ui->stackedWidget->setCurrentIndex(1);
-    }
-    else
-    {
-        QLabel *l = new QLabel();
-        l->setText(qtext);
-        l->setStyleSheet("color:black; background-color: lightgrey; border: 2px solid black; border-radius: 5px; padding: 10px; font-size: 16px;");
-        vbox_for_text_labels->addWidget(l);
-    }
+    ui->command_line->clear();
+    return;
 }
 
 void MainWindow::on_calendarWidget_clicked(const QDate &date)
